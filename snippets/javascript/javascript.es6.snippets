@@ -1,11 +1,11 @@
 # Apollo Query
 snippet aq
 	<Query
-	  query={${0:query}}}
-	  variables={${1:{}}>
+	  query={${1}}
+	  variables={${2}}>
 	  {({ data, loading, error }) => {
 	    if (loading) return <LoadingHeader plainText />
 	    if (error) return error.toString()
-	    return ${2:null}
+	    return ${3:null}
 	  }}
 	</Query>
