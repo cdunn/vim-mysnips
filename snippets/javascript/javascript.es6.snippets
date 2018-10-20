@@ -27,7 +27,7 @@ snippet comp
 	export default ${1}
 
 snippet ist
-	import styled from 'styled-components'
+	import styled from 'styled-components/macro'
 
 snippet icn
 	import { connect } from 'react-redux'
@@ -37,72 +37,3 @@ snippet icm
 
 snippet irf
 	import { reduxForm } from 'redux-form'
-
-snippet refo
-	import { Button, Row, Col } from 'antd'
-	import { compose } from 'redux'
-	import { reduxForm, Field } from 'redux-form'
-	import MakeAsyncFunction from 'react-redux-promise-listener'
-	import React from 'react'
-
-	import { FormFooter } from '../styled/Form'
-	import { promiseListener } from '../../store'
-	import { required } from '../../helpers/fieldValidations'
-	import BasicField from '../../fields/BasicField'
-	import { actionFn } from '../../actions/action'
-
-	class TargetForm extends React.Component {
-	  render() {
-	    const { handleSubmit, submitting, invalid, pristine } = this.props
-
-	    return (
-	      <form onSubmit={handleSubmit}>
-	        <Row>
-	          <Col span={12}>
-	            <Field
-	              name="field"
-	              label="Field"
-	              component={BasicField}
-	              type="password"
-	              validate={[required]}
-	              autoFocus
-	            />
-	            <FormFooter>
-	              <Button
-	                htmlType="submit"
-	                loading={submitting}
-	                disabled={pristine || invalid || submitting}
-	              >
-	                Submit
-	              </Button>
-	            </FormFooter>
-	          </Col>
-	        </Row>
-	      </form>
-	    )
-	  }
-	}
-
-	const ConnectedTargetForm = compose(
-	  reduxForm({ form: '' }),
-	)(TargetForm)
-
-	class RootForm extends React.Component {
-	  render() {
-	    return <MakeAsyncFunction
-	      listener={promiseListener}
-	      start="ACTION"
-	      resolve="ACTION_SUCCESS"
-	      reject="ACTION_FAILURE"
-	      setPayload={(action, payload) => {
-	        return actionFn(payload)
-	      }}
-	    >{asyncFunc => (
-	      <ConnectedTargetForm
-	        onSubmit={asyncFunc}
-	      />
-	    )}</MakeAsyncFunction>
-	  }
-	}
-
-	export default RootForm
